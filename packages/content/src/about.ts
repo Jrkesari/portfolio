@@ -2,8 +2,9 @@ import type { PathEntry, Provenance } from "./types.ts";
 
 /** The path so far, newest first, drawn like `git log --graph`. */
 export const path: PathEntry[] = [
+  { hash: "2026-10", date: "Oct 2026", branch: "netision", kind: "commit", title: "Shipped skills people write, share, and the model loads on its own", detail: "A skill shapes the answer, never what the user asked for. Then a public repo of my own, MIT licensed and installable as a plugin." },
   { hash: "2026-10", date: "Oct 2026", branch: "netision", kind: "commit", title: "Self-hosted a 34B open model on one GPU to answer “should we?” with numbers", detail: "Tool use went from 1/8 to 8/8 after rewriting its chat template, and fell to 39/60 at 35 tools. The lever is a stronger tool-caller, not the template." },
-  { hash: "2026-07", date: "Jul 2026", branch: "netision", kind: "commit", title: "Pulled four drifting copies of the model config into one library", detail: "Published by tag, never deployed. 86 releases by October." },
+  { hash: "2026-07", date: "Jul 2026", branch: "netision", kind: "commit", title: "Pulled four drifting copies of the model config into one library", detail: "Published by tag, never deployed. 101 releases by the end of October." },
   { hash: "2026-04", date: "Apr 2026", branch: "netision", kind: "commit", title: "Wrote an observability platform's backends in Go and Python", detail: "Agents, a collector, a probe and a control plane, with exactly one process allowed out of the datacenter." },
   { hash: "2026-02", date: "Feb 2026", branch: "netision", kind: "commit", title: "First MCP server at work", detail: "Three architectures in eight months; it's now the tool layer for the whole platform." },
   { hash: "2025-07", date: "Jul 2025", branch: "netision", kind: "commit", title: "First commit on the analytics agents", detail: "Text-to-SQL over a read-only warehouse, then a root-cause agent. Peak month: 186 commits." },
@@ -24,7 +25,7 @@ export interface ReceiptLine {
 export const receipt: { lines: ReceiptLine[]; footer: ReceiptLine[] } = {
   lines: [
     { label: "GitHub contributions, 2026", value: "1,292", source: "public" },
-    { label: "library releases, Jul–Oct", value: "86", source: "count" },
+    { label: "library releases, Jul–Oct", value: "101", source: "count" },
     { label: "models behind one interface", value: "17", source: "count" },
     { label: "first-party MCP tools", value: "49", source: "count" },
     { label: "test modules, query backend", value: "67", source: "count" },
@@ -59,16 +60,18 @@ export const toolbox: { dir: string; items: string[] }[] = [
 ];
 
 export const now = {
-  updated: "2026-10-09",
+  updated: "2026-10-31",
   doing: [
-    "Connectors for Zoho and Databricks: the plans are written and reviewed; nothing has touched a real account yet, so I'm not calling them done.",
-    "A template engine that writes a new proposal in the exact design of an old one, and refuses to ship if a previous client's name leaks through.",
-    "Measuring whether self-hosting an open model is worth it. So far the serving numbers are good, and tool use with many tools isn't.",
-    "Making the test suite faster to trust: 246 s → 75 s locally by running it in parallel.",
-    "This site: rebuilt with Claude Code, as a monorepo, and checked against the repos it describes.",
+    "Skills in the product: people write their own, share them with a colleague or the whole org, and the model loads one when a task calls for it. The rule that holds it together is that a skill shapes the answer, never what the user asked for.",
+    "My own skills, in public: [Jrkesari/skills](https://github.com/Jrkesari/skills), MIT licensed and installable as a plugin in Claude Code or Codex. A video editor that cuts your clips and photos on the beats of your song, in any aspect ratio, and an Android TV fixer that diagnoses before it changes anything and logs an undo for every change.",
+    "Skills for the agent I code with: eight in the backend repo now. The newest is a white-box security audit. It started in my public repo and moved into the repo it audits, since it describes that code too closely to be public.",
+    "Two more read-only connectors, Dynamics 365 and Odoo. Odoo goes through each database's own MCP server instead of one I wrote. It hasn't met a deployed stack yet, so I'm not calling it done.",
+    "A deck tool that plans, writes, checks and delivers a native presentation. The chat's cited sources reach it from code, not from the model, so footnote 3 on a slide is source 3 in the chat.",
+    "Dependency hygiene across three repos: a known-vulnerable dependency now fails the build, the advisory scan runs daily instead of only on a push, and this week's major upgrades (the HTTP client, DuckDB 2.0, the Anthropic SDK) went in behind it.",
   ],
   thinking: [
     "What it takes for an agent to be trusted with someone's mailbox. (Mostly: the agent never holds the keys.)",
+    "How to test a skill. Loading when it should and behaving once loaded are separate tests, and passing one says nothing about the other: a trigger check per model for the first, graded eval cases for the second.",
     "Whether tool calling degrades with the number of tools as sharply on other models as it did on the one I measured.",
   ],
   offline: [
@@ -81,7 +84,7 @@ export const uses = [
     group: "Editor & agents",
     items: [
       { name: "VS Code", note: "with Claude Code alongside" },
-      { name: "Claude Code", note: "with project skills I wrote: a release gate, a root-cause checklist, a token audit, a dependency audit" },
+      { name: "Claude Code", note: "with project skills I wrote: a release gate, a root-cause checklist, a token audit, a dependency audit, a security audit; and [public ones](https://github.com/Jrkesari/skills) anyone can install" },
       { name: "CLAUDE.md as a decision log", note: "each rule written next to the incident that produced it" },
     ],
   },

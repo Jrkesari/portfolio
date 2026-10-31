@@ -30,8 +30,8 @@ export const practices: Practice[] = [
   },
   {
     title: "Agents get checklists, not vibes.",
-    body: "I write skills for the coding agents I work with: a release gate in tiers, a root-cause routine that labels findings confirmed, probable or hypothesis, a token audit, a dependency audit. Each one ends the same way: merging is never the agent's call.",
-    evidence: "seven project skills in the query backend",
+    body: "I write skills for the coding agents I work with: a release gate in tiers, a root-cause routine that labels findings confirmed, probable or hypothesis, a token audit, a dependency audit, a white-box security audit. Each one ends the same way: merging is never the agent's call.",
+    evidence: "eight project skills in the query backend, and a public repo of my own",
   },
   {
     title: "Registries, not branches.",

@@ -49,7 +49,7 @@ export const systems: System[] = [
           "**Tags, not tool names.** Tools declare `produces_file`, `requires_approval`, `connector:<id>`, `format:<word>` in their MCP metadata. New tools ship with one allowlist word, or no change here at all.",
           "**Credentials ride headers, never arguments.** Tool arguments are model-controlled and re-sent in history. A model that could set a token could read another person's account.",
           "**Approval lives in the host.** A send-mail call is parked on a card whose props *are* the call; the Send click runs it with a fresh token and no model in the path. I wrote the design; a teammate built the first version.",
-          "**A skill is an extra prompt and nothing else.** One system message after the history. Same loop, same tools. So a skill can't quietly change how files get made.",
+          "**A skill shapes the answer, never what the user asked for.** People write and share their own; the model loads one when a task calls for it, from a tool whose only choices are this turn's switched-on skills. A skill may change the format and whether a file gets made, never the tools, where data goes, or who the model says it is.",
           "**Agents are tools inside the loop.** The analytics agents used to bypass the chat loop, so 'show me the sales' then 'mail it' re-ran the SQL. Now one loop holds connectors, files and agents.",
         ],
       },
@@ -58,6 +58,7 @@ export const systems: System[] = [
         rejected: [
           { option: "Retry a call the guardrail blocked", why: "A blocked call is billed its whole prompt, and a second one clears nothing." },
           { option: "Offer every file tool on every turn", why: "Research and delivery compete for the same round budget. Gated on the words in the request, a news question stopped returning an unasked-for PDF." },
+          { option: "Let a skill's wording open the file tools", why: "A fall-through added to fix one wrong PDF changed every file request. Only the file tools a skill names in its frontmatter open, and only for the skill the user picked." },
           { option: "Keep the warehouse on blob storage", why: "Shipped, measured fast when warm, then reverted: it ran out of memory on a small VM with nowhere to spill." },
         ],
       },
@@ -78,7 +79,7 @@ export const systems: System[] = [
     role: "Created and sole maintainer, 100 of 100 commits",
     oneLiner: "The shared LLM layer every backend installs: 17 models behind one interface, a Stop that actually stops, and a billing-grade ledger.",
     summary:
-      "The model config had been copy-pasted into four repositories and had drifted. One copy was about 2,500 lines away from another. I pulled it into a versioned Python library: published by git tag, never deployed. It now holds the model switchboard, document ingestion, the table store, cancellation, observability and the cost ledger. 86 releases in three months.",
+      "The model config had been copy-pasted into four repositories and had drifted. One copy was about 2,500 lines away from another. I pulled it into a versioned Python library: published by git tag, never deployed. It now holds the model switchboard, document ingestion, the table store, cancellation, observability and the cost ledger. 101 releases in four months.",
     stack: ["Python 3.12", "uv", "asyncio", "provider APIs", "DuckDB", "sqlite-vec", "ClickHouse", "OpenTelemetry"],
     diagram: llmCallFigure,
     replay: {
@@ -90,7 +91,7 @@ export const systems: System[] = [
       scenarios: routerScenarios,
     },
     metrics: [
-      { label: "releases", after: "86", source: "count", note: "tags on the shared remote, v0.1.0 → v0.59.1, July–October 2026" },
+      { label: "releases", after: "101", source: "count", note: "tags on the shared remote, v0.1.0 → v0.67.1, July–October 2026" },
       { label: "chat models behind one interface", after: "17", source: "count", note: "6 providers in use, 8 provider routes, plus 2 image providers" },
       { label: "guardrail blocks on the same payload", before: "3/12", after: "0/12", source: "measured", note: "one confidentiality line instead of three" },
       { label: "pricing rewrite, golden cases identical", after: "308/308", source: "commit", note: "an equivalence check against cases captured before the change" },
@@ -300,6 +301,7 @@ export const systems: System[] = [
 
 /** Earlier, smaller and personal work — a list, not case studies. */
 export const earlier = [
+  { name: "Skills", year: "2026", what: "My public Claude Code skills, MIT licensed and installable as plugins: a video editor that cuts your own clips and photos on the beats of a song you give it, in any aspect ratio, and an Android TV fixer that reads why the TV is slow or restarting before it changes anything, with graded evals for the behaviours that matter.", stack: "Python · ffmpeg · HyperFrames · ADB", href: "https://github.com/Jrkesari/skills" },
   { name: "Webchat", year: "2025", what: "An MCP server that exposes web scraping to any MCP client, probing in parallel to work out whether a site is static, a client-rendered app or bot-protected, then picking a strategy.", stack: "Python · Playwright · BeautifulSoup · MCP" },
   { name: "SplitCash", year: "2025", what: "Voice to ledger: Hindi speech transcribed, translated and turned into structured expense entries. Five speech-to-text and three LLM providers behind one interface.", stack: "LangChain · DuckDB · multi-provider STT" },
   { name: "Automation suite", year: "2025", what: "25+ CrewAI agents with shared memory and delegation for lead generation, SEO and content, from raw input to Excel and Markdown reports.", stack: "CrewAI · Gemini · pandas" },
