@@ -19,7 +19,14 @@
       "dependsOn": ["^typecheck"]
     },
     "test": {
-      "dependsOn": ["^typecheck"]
+      "dependsOn": ["^typecheck"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/apps/web/index.html",
+        "$TURBO_ROOT$/apps/web/public/resume.pdf",
+        "$TURBO_ROOT$/apps/web/src/routes/**",
+        "$TURBO_ROOT$/vercel.json"
+      ]
     },
     "dev": {
       "dependsOn": ["generate"],

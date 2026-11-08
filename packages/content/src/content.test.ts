@@ -4,7 +4,7 @@
 
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { parseAscii } from "@jrk/ascii";
 import type { Diagram } from "./diagrams.ts";
@@ -125,4 +125,25 @@ test("the CSP in vercel.json allows the inline theme script, byte for byte", () 
   assert.equal(inline.length, 1, "expected exactly one plain inline script");
   const hash = `sha256-${createHash("sha256").update(inline[0]).digest("base64")}`;
   assert.ok(vercel.includes(`'${hash}'`), `vercel.json's CSP is missing '${hash}'`);
+});
+
+test("every skill points at work or a page that exists", () => {
+  const slugs = new Set(content.systems.map((s) => s.slug));
+  for (const d of content.toolbox)
+    for (const w of d.where) {
+      if (/^https:\/\//.test(w.href)) continue;
+      const work = /^\/work\/([a-z0-9-]+)$/.exec(w.href);
+      if (work) assert.ok(slugs.has(work[1]), `${d.dir}/: no system "${work[1]}"`);
+      else assert.ok(existsSync(new URL(`../../../apps/web/src/routes${w.href}.tsx`, import.meta.url)), `${d.dir}/: no page ${w.href}`);
+    }
+});
+
+test("resume.pdf is the printed résumé, on one page", () => {
+  // It's printed by hand from /resume, so a print taken of the dev server's error overlay
+  // once shipped as the résumé. Chrome writes the page's <title> into the PDF.
+  const pdf = readFileSync(new URL("../../../apps/web/public/resume.pdf", import.meta.url)).toString("latin1");
+  const hex = /\/Title\s*<FEFF([0-9A-Fa-f]+)>/.exec(pdf)?.[1] ?? "";
+  const title = String.fromCharCode(...(hex.match(/.{4}/g) ?? []).map((h) => Number.parseInt(h, 16)));
+  assert.equal(title, `Résumé · ${content.site.name}`, "print /resume from a production preview, not the dev server");
+  assert.match(pdf, /\/Type\s*\/Pages[^>]*\/Count 1\b/, "the résumé runs past one page");
 });

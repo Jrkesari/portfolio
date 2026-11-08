@@ -26,6 +26,10 @@ const llms = [
   `- Site: ${site.url}`,
   `- Résumé: ${site.url}/resume (also /resume.md, /resume.json, /resume.pdf)`,
   "",
+  "## Skills",
+  "",
+  ...resume.skills.map((s) => `- ${s.label}: ${s.value}`),
+  "",
   "## Selected work",
   "",
   ...systems.map((s) => `- [${s.name}](${site.url}/work/${s.slug}): ${plain(s.oneLiner)} (${s.where}; ${s.role})`),
@@ -82,8 +86,13 @@ const json = {
     ...span(ed.when),
   })),
   certificates: resume.certifications.map((c) => ({ name: c })),
-  skills: resume.skills.map((s) => ({ name: s.label, keywords: s.value.split(/,\s*/) })),
-  projects: resume.projects.map((p) => ({ name: p.name, description: p.detail, keywords: p.stack.split(/,\s*/) })),
+  skills: resume.skills.map((s) => ({ name: s.label, keywords: s.value.split(/[,;]\s*/) })),
+  projects: resume.projects.map((p) => ({
+    name: p.name,
+    description: p.detail,
+    ...("href" in p && { url: p.href }),
+    keywords: p.stack.split(/,\s*/),
+  })),
 };
 writeFileSync(out("resume.json"), JSON.stringify(json, null, 2), "utf8");
 console.log("resume.json written");
@@ -115,7 +124,7 @@ const md = [
   "",
   "## Projects",
   "",
-  ...resume.projects.map((p) => `- **${p.name}.** ${p.detail} (${p.stack})`),
+  ...resume.projects.map((p) => `- **${"href" in p ? `[${p.name}](${p.href})` : p.name}.** ${p.detail} (${p.stack})`),
   "",
   "## Education",
   "",

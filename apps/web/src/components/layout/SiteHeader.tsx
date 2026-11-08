@@ -7,6 +7,7 @@ import { openPalette } from "@/lib/ui";
 
 const nav = [
   { label: "work", to: "/", hash: "work" },
+  { label: "skills", to: "/", hash: "skills" },
   { label: "thinking", to: "/thinking" },
   { label: "notes", to: "/notes" },
   { label: "about", to: "/about" },

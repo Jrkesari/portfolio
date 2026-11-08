@@ -59,8 +59,8 @@ export const llmCallFigure: Diagram = {
 
 export const toolServerFigure: Diagram = {
   id: "tool-server",
-  label: "Diagram of the MCP tool server: an agent host sends requests with identity in headers, through middleware, to a registry that exposes 49 first-party tools calling SaaS APIs, and mounts external MCP servers as proxies.",
-  aliases: { "49 tools": "tools" },
+  label: "Diagram of the MCP tool server: an agent host sends requests with identity in headers, through middleware, to a registry that exposes 69 first-party tools calling SaaS APIs, and mounts external MCP servers as proxies.",
+  aliases: { "69 tools": "tools" },
   src: String.raw`
 ┌──────────────┐
 │  agent host  │
@@ -72,7 +72,7 @@ export const toolServerFigure: Diagram = {
 └──────┬───────┘
        ▼
 ┌──────────────┐      ┌──────────────┐
-│   registry   │─────▶│  49 tools    │
+│   registry   │─────▶│  69 tools    │
 └──────┬───────┘      └──────┬───────┘
        │                     ▼
        │              ┌──────────────┐

@@ -2,6 +2,7 @@ import type { PathEntry, Provenance } from "./types.ts";
 
 /** The path so far, newest first, drawn like `git log --graph`. */
 export const path: PathEntry[] = [
+  { hash: "2026-10", date: "Oct 2026", branch: "netision", kind: "commit", title: "The tool server reached 69 tools and 20 per-user connectors", detail: "Across eight providers. I wrote 19 of the connectors, Dynamics 365 and Odoo last, both read-only; a teammate wrote Salesforce." },
   { hash: "2026-10", date: "Oct 2026", branch: "netision", kind: "commit", title: "Shipped skills people write, share, and the model loads on its own", detail: "A skill shapes the answer, never what the user asked for. Then a public repo of my own, MIT licensed and installable as a plugin." },
   { hash: "2026-10", date: "Oct 2026", branch: "netision", kind: "commit", title: "Self-hosted a 34B open model on one GPU to answer “should we?” with numbers", detail: "Tool use went from 1/8 to 8/8 after rewriting its chat template, and fell to 39/60 at 35 tools. The lever is a stronger tool-caller, not the template." },
   { hash: "2026-07", date: "Jul 2026", branch: "netision", kind: "commit", title: "Pulled four drifting copies of the model config into one library", detail: "Published by tag, never deployed. 101 releases by the end of October." },
@@ -27,7 +28,7 @@ export const receipt: { lines: ReceiptLine[]; footer: ReceiptLine[] } = {
     { label: "GitHub contributions, 2026", value: "1,292", source: "public" },
     { label: "library releases, Jul–Oct", value: "101", source: "count" },
     { label: "models behind one interface", value: "17", source: "count" },
-    { label: "first-party MCP tools", value: "49", source: "count" },
+    { label: "first-party MCP tools", value: "69", source: "count" },
     { label: "test modules, query backend", value: "67", source: "count" },
     { label: "spreadsheet eval", value: "2/8 → 6/8", source: "eval" },
     { label: "guardrail blocks", value: "3/12 → 0/12", source: "measured" },
@@ -49,14 +50,51 @@ export const provenanceNote: Record<Provenance | "public", string> = {
   public: "public: visible on my GitHub profile",
 };
 
-/** The toolbox, as `tree` would print it. */
-export const toolbox: { dir: string; items: string[] }[] = [
-  { dir: "agents", items: ["MCP (client & server)", "tool-calling loops", "LangGraph", "LangChain", "CrewAI"] },
-  { dir: "models", items: ["Azure OpenAI", "Anthropic", "Gemini", "NVIDIA NIM", "prompt caching", "structured outputs", "vision"] },
-  { dir: "backend", items: ["Python", "FastAPI", "asyncio", "Pydantic", "Go", "gRPC"] },
-  { dir: "data", items: ["DuckDB", "SQLite + sqlite-vec", "ClickHouse", "Redpanda", "FAISS", "pandas"] },
-  { dir: "platform", items: ["Docker", "Azure", "Microsoft Graph", "OpenTelemetry", "pytest", "uv"] },
-  { dir: "front", items: ["TypeScript", "React", "TanStack", "Tailwind (this site)"] },
+/** The skills, as `tree` would print them, each line with where it's in use. */
+export const toolbox: { dir: string; items: string[]; where: { label: string; href: string }[] }[] = [
+  {
+    dir: "agents",
+    items: ["MCP (client & server)", "tool-calling loops", "agent skills", "evals", "LangGraph", "LangChain", "CrewAI"],
+    where: [
+      { label: "query backend", href: "/work/query-backend" },
+      { label: "tool server", href: "/work/tool-server" },
+      { label: "my public skills", href: "https://github.com/Jrkesari/skills" },
+    ],
+  },
+  {
+    dir: "models",
+    items: ["Azure OpenAI", "Anthropic", "Gemini", "NVIDIA NIM", "vLLM", "prompt caching", "structured outputs", "vision"],
+    where: [{ label: "LLM library", href: "/work/llm-library" }],
+  },
+  {
+    dir: "backend",
+    items: ["Python", "FastAPI", "asyncio", "Pydantic", "Go", "gRPC"],
+    where: [
+      { label: "query backend", href: "/work/query-backend" },
+      { label: "observability", href: "/work/observability" },
+    ],
+  },
+  {
+    dir: "data",
+    items: ["RAG", "text-to-SQL", "DuckDB", "SQLite + sqlite-vec", "ClickHouse", "Redpanda", "FAISS", "pandas"],
+    where: [
+      { label: "analytics agents", href: "/work/analytics-agents" },
+      { label: "LLM library", href: "/work/llm-library" },
+    ],
+  },
+  {
+    dir: "platform",
+    items: ["Docker", "Azure", "Microsoft Graph", "OpenTelemetry", "GitHub Actions", "pytest", "uv"],
+    where: [
+      { label: "tool server", href: "/work/tool-server" },
+      { label: "observability", href: "/work/observability" },
+    ],
+  },
+  {
+    dir: "front",
+    items: ["TypeScript", "React", "TanStack", "Tailwind"],
+    where: [{ label: "this site", href: "/colophon" }],
+  },
 ];
 
 export const now = {

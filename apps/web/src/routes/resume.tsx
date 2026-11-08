@@ -99,7 +99,17 @@ function Resume() {
           <ul className="space-y-2.5 text-[0.92rem]">
             {resume.projects.map((p) => (
               <li key={p.name}>
-                <span className="font-medium text-ink">{p.name}.</span> <span className="text-ink-2">{p.detail}</span>{" "}
+                <span className="font-medium text-ink">
+                  {"href" in p && p.href ? (
+                    <a className="link" href={p.href}>
+                      {p.name}
+                    </a>
+                  ) : (
+                    p.name
+                  )}
+                  .
+                </span>{" "}
+                <span className="text-ink-2">{p.detail}</span>{" "}
                 <span className="mono text-[11px] text-graphite">{p.stack}</span>
               </li>
             ))}
@@ -119,9 +129,12 @@ function Resume() {
               <span className="mono text-[11.5px] text-graphite">{ed.when}</span>
             </p>
           ))}
-          <ul className="mt-2 space-y-0.5 text-[0.92rem] text-ink-2">
-            {resume.certifications.map((c) => (
-              <li key={c}>{c}</li>
+          <ul className="mt-2 text-[0.92rem] text-ink-2">
+            {resume.certifications.map((c, i) => (
+              <li key={c} className="inline">
+                {c}
+                {i < resume.certifications.length - 1 && <span className="text-graphite"> · </span>}
+              </li>
             ))}
           </ul>
         </section>
