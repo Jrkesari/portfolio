@@ -13,6 +13,7 @@ export * from "./resume.ts";
 export * from "./router.ts";
 export * from "./rules.ts";
 export * from "./site.ts";
+export * from "./skills.ts";
 export * from "./systems.ts";
 export * from "./telemetry.ts";
 export * from "./types.ts";

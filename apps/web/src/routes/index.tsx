@@ -4,7 +4,7 @@ import { Hero } from "@/components/home/Hero";
 import { NotesPreview } from "@/components/home/NotesPreview";
 import { Receipt } from "@/components/home/Receipt";
 import { RulesLog } from "@/components/home/RulesLog";
-import { Toolbox } from "@/components/home/Toolbox";
+import { Skills } from "@/components/home/Skills";
 import { TurnReplay } from "@/components/home/TurnReplay";
 import { WorkIndex } from "@/components/home/WorkIndex";
 import { person, Seo, website } from "@/components/Seo";
@@ -13,9 +13,9 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-// The home page is the short version: the work, the skills, one system taken apart,
-// five rules, the numbers and the notes. The rest of the rules and the repo shape live
-// on /thinking; the path and the earlier projects on /about.
+// The home page is the short version: the work, the Claude Code skills I've published,
+// one system taken apart, five rules, the numbers and the notes. The rest of the rules
+// and the repo shape live on /thinking; the path, the toolbox and the earlier projects on /about.
 const FEATURED_RULES = ["unmeasured", "authority", "measure", "position", "root-cause"];
 
 function Home() {
@@ -31,7 +31,7 @@ function Home() {
       />
       <Hero />
       <WorkIndex />
-      <Toolbox n="02" />
+      <Skills n="02" />
       <TurnReplay n="03" />
       <RulesLog n="04" ids={FEATURED_RULES} />
       <Receipt n="05" />

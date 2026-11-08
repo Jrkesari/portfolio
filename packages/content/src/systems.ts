@@ -301,7 +301,6 @@ export const systems: System[] = [
 
 /** Earlier, smaller and personal work — a list, not case studies. */
 export const earlier = [
-  { name: "Skills", year: "2026", what: "My public Claude Code skills, MIT licensed and installable as plugins: a video editor that cuts your own clips and photos on the beats of a song you give it, in any aspect ratio, and an Android TV fixer that reads why the TV is slow or restarting before it changes anything, with graded evals for the behaviours that matter.", stack: "Python · ffmpeg · HyperFrames · ADB", href: "https://github.com/Jrkesari/skills" },
   { name: "Webchat", year: "2025", what: "An MCP server that exposes web scraping to any MCP client, probing in parallel to work out whether a site is static, a client-rendered app or bot-protected, then picking a strategy.", stack: "Python · Playwright · BeautifulSoup · MCP" },
   { name: "SplitCash", year: "2025", what: "Voice to ledger: Hindi speech transcribed, translated and turned into structured expense entries. Five speech-to-text and three LLM providers behind one interface.", stack: "LangChain · DuckDB · multi-provider STT" },
   { name: "Automation suite", year: "2025", what: "25+ CrewAI agents with shared memory and delegation for lead generation, SEO and content, from raw input to Excel and Markdown reports.", stack: "CrewAI · Gemini · pandas" },

@@ -8,7 +8,7 @@
 // Runs before `dev` and `build` (see turbo.json). All of them are gitignored.
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { hero, notes, resume, rules, site, systems } from "@jrk/content";
+import { agentSkills, hero, notes, resume, rules, site, skillsRepo, systems } from "@jrk/content";
 import { pages } from "./routes.ts";
 
 const out = (name: string) => fileURLToPath(new URL(`../public/${name}`, import.meta.url));
@@ -26,7 +26,13 @@ const llms = [
   `- Site: ${site.url}`,
   `- Résumé: ${site.url}/resume (also /resume.md, /resume.json, /resume.pdf)`,
   "",
-  "## Skills",
+  "## Claude Code skills",
+  "",
+  `Published at ${skillsRepo.href}, MIT licensed, installable as plugins in Claude Code or Codex.`,
+  "",
+  ...agentSkills.map((s) => `- [${s.name}](${s.href}): ${s.what}`),
+  "",
+  "## Stack",
   "",
   ...resume.skills.map((s) => `- ${s.label}: ${s.value}`),
   "",

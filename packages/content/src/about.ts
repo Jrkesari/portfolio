@@ -56,7 +56,7 @@ export const provenanceNote: Record<Provenance | "public", string> = {
   public: "public: visible on my GitHub profile",
 };
 
-/** The skills, as `tree` would print them, each line with where it's in use. */
+/** The toolbox, as `tree` would print it, each line with where it's in use. */
 export const toolbox: { dir: string; items: string[]; where: { label: string; href: string }[] }[] = [
   {
     dir: "agents",

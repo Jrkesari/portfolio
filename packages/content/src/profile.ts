@@ -19,7 +19,8 @@ export const profile = {
     points: [
       "AI Engineer at Netision Technology since May 2025.",
       "Wrote the agent loop, tool server and LLM library behind an enterprise AI workspace.",
-      "Skills: Python, Go, TypeScript and SQL; MCP, tool-calling loops, RAG, evals and agent skills.",
+      "Published Claude Code skills: a beat-synced video editor and an Android TV fixer, installable as plugins.",
+      "Stack: Python, Go, TypeScript and SQL; MCP, tool-calling loops, RAG and evals.",
       "Every number I quote says where it came from.",
     ],
   },

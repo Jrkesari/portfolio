@@ -3,18 +3,18 @@ import { Link } from "@tanstack/react-router";
 import { useInViewOnce } from "@/lib/hooks";
 import { SectionHead } from "./SectionHead";
 
-/** The skills, as `tree` prints a directory: one line per kind, and where each is in use. */
+/** The toolbox, as `tree` prints a directory: one line per kind, and where each is in use. */
 export function Toolbox({ n = "02" }: { n?: string }) {
   const [ref, seen] = useInViewOnce<HTMLDivElement>("0px 0px -15% 0px");
   const total = toolbox.reduce((n, d) => n + d.items.length, 0);
 
   return (
-    <section id="skills" className="shell py-16 md:py-24" aria-labelledby="skills-title">
+    <section id="toolbox" className="shell py-16 md:py-24" aria-labelledby="toolbox-title">
       <SectionHead
         n={n}
-        id="skills-title"
-        kicker="skills"
-        title="Skills"
+        id="toolbox-title"
+        kicker="toolbox"
+        title="What I reach for"
         lede="Not a list of everything I've touched. What I'd pick up tomorrow without looking anything up, and where each one is in use."
       />
       <div ref={ref} className="mt-12 rounded-[6px] border border-rule bg-card/60 p-5 sm:p-7">
@@ -77,7 +77,7 @@ export function Toolbox({ n = "02" }: { n?: string }) {
           data-seen={seen}
           style={{ ["--i" as string]: toolbox.length + 2 }}
         >
-          {toolbox.length} directories, {total} skills
+          {toolbox.length} directories, {total} tools
         </p>
       </div>
     </section>

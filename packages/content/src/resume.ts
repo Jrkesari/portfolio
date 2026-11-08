@@ -100,7 +100,7 @@ export const resume = {
     },
   ],
   projects: [
-    { name: "Agent skills, open source", href: "https://github.com/Jrkesari/skills", detail: "Claude Code and Codex plugins, MIT licensed: a beat-synced video editor and an Android TV fixer that diagnoses before changing anything.", stack: "Python, ffmpeg, HyperFrames, ADB" },
+    { name: "Claude Code skills, open source", href: "https://github.com/Jrkesari/skills", detail: "Claude Code and Codex plugins, MIT licensed: a beat-synced video editor and an Android TV fixer that diagnoses before changing anything.", stack: "Python, ffmpeg, HyperFrames, ADB" },
     { name: "Intelligent web scraper with MCP", detail: "An MCP server that exposes web scraping to any MCP client, probing in parallel to tell static, client-rendered and bot-protected sites apart, then picking a strategy.", stack: "Python, Playwright, BeautifulSoup, MCP" },
     { name: "SplitCash: voice-driven finance pipeline", detail: "Hindi speech to translated, structured ledger entries; 5 speech-to-text and 3 LLM providers behind one interface.", stack: "LangChain, DuckDB, Python" },
   ],
