@@ -11,7 +11,7 @@ export function Skills({ n = "02" }: { n?: string }) {
         n={n}
         id="skills-title"
         kicker="skills"
-        title="Claude Code skills"
+        title="Skills"
         lede="Skills I wrote and published, MIT licensed. Install one as a plugin in Claude Code or Codex, then ask in your own words. They keep the rules I hold tools to at work: look before changing anything, ask about anything you might miss, leave a way back."
       />
       <ul className="mt-12 grid gap-6 lg:grid-cols-2">

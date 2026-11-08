@@ -88,7 +88,7 @@ export function CommandPalette() {
         },
         {
           id: "skills",
-          label: "Claude Code skills",
+          label: "Skills",
           hint: "/#skills",
           keywords: ["skills", "plugins", "codex", "video editor", "android tv"],
           run: go("/", "skills"),

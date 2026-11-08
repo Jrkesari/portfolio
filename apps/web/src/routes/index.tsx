@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-// The home page is the short version: the work, the Claude Code skills I've published,
+// The home page is the short version: the work, the skills I've published,
 // one system taken apart, five rules, the numbers and the notes. The rest of the rules
 // and the repo shape live on /thinking; the path, the toolbox and the earlier projects on /about.
 const FEATURED_RULES = ["unmeasured", "authority", "measure", "position", "root-cause"];

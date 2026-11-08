@@ -26,7 +26,7 @@ const llms = [
   `- Site: ${site.url}`,
   `- Résumé: ${site.url}/resume (also /resume.md, /resume.json, /resume.pdf)`,
   "",
-  "## Claude Code skills",
+  "## Skills",
   "",
   `Published at ${skillsRepo.href}, MIT licensed, installable as plugins in Claude Code or Codex.`,
   "",
