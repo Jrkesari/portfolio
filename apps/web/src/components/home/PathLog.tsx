@@ -1,6 +1,6 @@
 import { type PathEntry, path } from "@jrk/content";
-import { useEffect, useState } from "react";
 import { Ticker } from "@/components/Ticker";
+import { useContributions } from "@/lib/contributions";
 import { useInViewOnce, usePrefersReducedMotion } from "@/lib/hooks";
 import { SectionHead } from "./SectionHead";
 
@@ -80,45 +80,18 @@ function Lanes({ row, last }: { row: Row; last: boolean }) {
   );
 }
 
-const FALLBACK: Record<number, number> = { 2022: 6, 2023: 16, 2024: 82, 2025: 643, 2026: 1292 };
-
-async function fetchTotals(url: string): Promise<Record<string, number>> {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(String(res.status));
-  const data = (await res.json()) as { totals?: Record<string, number> };
-  return data.totals ?? {};
-}
-
-async function fetchContributions(): Promise<Record<number, number>> {
-  // Live from api/contributions.ts (CDN-cached for an hour); if that's down, or in
-  // `vite dev` where there are no functions, the snapshot written at build time by
-  // scripts/contributions.ts. Either way, no third-party request from the browser.
-  const totals = await fetchTotals("/api/contributions").catch(() => fetchTotals("/contributions.json"));
-  const out: Record<number, number> = { ...FALLBACK };
-  for (const [y, n] of Object.entries(totals)) out[Number(y)] = n;
-  return out;
-}
+const WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
 
 function Growth() {
   const [ref, seen] = useInViewOnce<HTMLDivElement>();
-  const [counts, setCounts] = useState(FALLBACK);
-  useEffect(() => {
-    if (!seen) return;
-    let live = true;
-    fetchContributions().then(
-      (c) => live && setCounts(c),
-      () => {},
-    );
-    return () => {
-      live = false;
-    };
-  }, [seen]);
+  const counts = useContributions(seen);
   const years = Object.keys(counts).map(Number).sort();
   const max = Math.max(...years.map((y) => counts[y]));
   const W = 30;
   // Bars draw in once they're on screen; with reduced motion they're simply there.
   const reduced = usePrefersReducedMotion();
   const shown = seen || reduced;
+  const first = counts[years[0]];
   return (
     <figure ref={ref} className="m-0">
       <figcaption className="mb-4">
@@ -154,6 +127,10 @@ function Growth() {
           );
         })}
       </div>
+      <p className="hand mt-6 text-[13px] leading-[1.6]">
+        {WORDS[first] ?? first.toLocaleString("en-US")} contribution{first === 1 ? "" : "s"} in {years[0]}. the line
+        bends where the agents start.
+      </p>
     </figure>
   );
 }
@@ -213,9 +190,6 @@ export function PathLog({ n = "01" }: { n?: string }) {
         <div className="lg:pt-40">
           <div className="reveal lg:sticky lg:top-28">
             <Growth />
-            <p className="hand mt-6 text-[13px] leading-[1.6]">
-              six contributions in 2022. the line bends where the agents start.
-            </p>
           </div>
         </div>
       </div>

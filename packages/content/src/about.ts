@@ -16,16 +16,22 @@ export const path: PathEntry[] = [
   { hash: "2022-09", date: "2022 – 25", branch: "main", kind: "commit", title: "BCA in Data Science, Bennett University", detail: "Graduated 9.6/10. First semester: a perfect 10. Also ran photography and multimedia for a few student societies." },
 ];
 
+/** GitHub contributions per year, from the public calendar on 8 Nov 2026. The pages
+ *  read them live and show these until that answers, or if it can't. */
+export const contributions: Record<number, number> = { 2022: 1, 2023: 13, 2024: 42, 2025: 643, 2026: 1489 };
+
 export interface ReceiptLine {
   label: string;
   value: string;
   source: Provenance | "public";
+  /** A GitHub contributions count for this year: read live, `value` until it arrives. */
+  contributionsIn?: number;
 }
 
 /** The receipt. Every line has a source; most live in private repos, so ask me about any of them. */
 export const receipt: { lines: ReceiptLine[]; footer: ReceiptLine[] } = {
   lines: [
-    { label: "GitHub contributions, 2026", value: "1,292", source: "public" },
+    { label: "GitHub contributions, 2026", value: contributions[2026].toLocaleString("en-US"), source: "public", contributionsIn: 2026 },
     { label: "library releases, Jul–Oct", value: "101", source: "count" },
     { label: "models behind one interface", value: "17", source: "count" },
     { label: "first-party MCP tools", value: "69", source: "count" },

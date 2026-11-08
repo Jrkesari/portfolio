@@ -1,5 +1,6 @@
 import { provenanceNote, receipt } from "@jrk/content";
 import { BeforeAfter } from "@/components/Ticker";
+import { useContributions } from "@/lib/contributions";
 import { useInViewOnce } from "@/lib/hooks";
 import { SectionHead } from "./SectionHead";
 
@@ -10,6 +11,7 @@ const BARCODE = "▌▍█▏▌▋▏█▍▌▏▊▍▏█▌▍▏▋█▏
 export function Receipt({ n = "04" }: { n?: string }) {
   const [ref, seen] = useInViewOnce<HTMLDivElement>("0px 0px -20% 0px");
   const rows = receipt.lines.length + receipt.footer.length + 9;
+  const counts = useContributions(seen);
 
   return (
     <section id="numbers" className="shell py-16 md:py-24" aria-labelledby="numbers-title">
@@ -53,7 +55,11 @@ export function Receipt({ n = "04" }: { n?: string }) {
                     <span aria-hidden className="receipt-dots" />
                     <span role="cell" className="text-ink tabular-nums">
                       {/* Counts while its line prints: the header is four rows, then one row per line. */}
-                      <BeforeAfter value={l.value} start={seen} delay={(i + 4) * 120} />
+                      <BeforeAfter
+                        value={(l.contributionsIn && counts[l.contributionsIn]?.toLocaleString("en-US")) || l.value}
+                        start={seen}
+                        delay={(i + 4) * 120}
+                      />
                     </span>
                     <span role="cell" className="receipt-src" title={provenanceNote[l.source]}>
                       {l.source}
